@@ -10,7 +10,7 @@ export default function Audit() {
   const [valid, setValid] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const base = Array.from({ length: 25 }).map((_, i) => ({ index: i, timestamp: new Date(Date.now() - i * 3600_000).toISOString(), action: `Action ${i}` }));
+    const base = generateAuditBase(25, Date.now());
     computeChain(base.map((b) => ({ ...b, prevHash: '', hash: '' }))).then(setEntries);
   }, []);
 
