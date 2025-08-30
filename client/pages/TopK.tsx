@@ -47,20 +47,31 @@ export default function TopK() {
         </section>
         <section className="col-span-12 lg:col-span-4 min-w-0 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
           <h3 className="font-semibold mb-2">Top Hashtags</h3>
-          <div className="overflow-x-auto"><table className="w-full text-sm table-fixed">
-            <thead className="text-slate-400">
-              <tr><th className="text-left">Hashtag</th><th className="text-right">Count</th><th className="text-right">Radius</th></tr>
-            </thead>
-            <tbody>
-              {hash.slice(0,20).map((h)=> (
-                <tr key={h.id} className="border-t border-slate-800/70">
-                  <td>{h.tag}</td>
-                  <td className="text-right tabular-nums">{h.count}</td>
-                  <td className="text-right">{h.radius}</td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm table-auto">
+              <colgroup>
+                <col className="w-[65%]" />
+                <col className="w-[20%]" />
+                <col className="w-[15%]" />
+              </colgroup>
+              <thead className="text-slate-400">
+                <tr>
+                  <th className="text-left">Hashtag</th>
+                  <th className="text-right">Count</th>
+                  <th className="text-right">Radius</th>
                 </tr>
-              ))}
-            </tbody>
-          </table></div>
+              </thead>
+              <tbody>
+                {hash.slice(0,20).map((h)=> (
+                  <tr key={h.id} className="border-t border-slate-800/70">
+                    <td className="pr-2"><div className="truncate" title={h.tag}>{h.tag}</div></td>
+                    <td className="text-right tabular-nums whitespace-nowrap w-24">{(h.count as number).toLocaleString()}</td>
+                    <td className="text-right whitespace-nowrap w-20">{h.radius}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
         <section className="col-span-12 lg:col-span-4 min-w-0 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
           <h3 className="font-semibold mb-2">Top Posts</h3>
