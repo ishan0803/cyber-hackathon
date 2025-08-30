@@ -1,5 +1,10 @@
-export interface LayoutRequest { ids: string[]; seed: number }
-export interface LayoutResponse { positions: Record<string, { x: number; y: number }> }
+export interface LayoutRequest {
+  ids: string[];
+  seed: number;
+}
+export interface LayoutResponse {
+  positions: Record<string, { x: number; y: number }>;
+}
 
 // Simple circular jitter layout running off-thread
 self.onmessage = (e: MessageEvent<LayoutRequest>) => {
@@ -10,7 +15,10 @@ self.onmessage = (e: MessageEvent<LayoutRequest>) => {
   ids.forEach((id, i) => {
     const angle = (i / ids.length) * Math.PI * 2;
     const r = R * (0.6 + rand() * 0.4);
-    positions[id] = { x: Math.cos(angle) * r + (rand() - 0.5) * 40, y: Math.sin(angle) * r + (rand() - 0.5) * 40 };
+    positions[id] = {
+      x: Math.cos(angle) * r + (rand() - 0.5) * 40,
+      y: Math.sin(angle) * r + (rand() - 0.5) * 40,
+    };
   });
   const resp: LayoutResponse = { positions };
   // @ts-expect-error - postMessage in worker

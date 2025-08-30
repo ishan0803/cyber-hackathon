@@ -36,20 +36,12 @@ export function generateTrend(seed = Date.now()): TimePoint[] {
 }
 
 export function generateStateBars(seed = Date.now()): StateBar[] {
-  const states = [
-    "MH",
-    "DL",
-    "KA",
-    "TN",
-    "WB",
-    "GJ",
-    "RJ",
-    "UP",
-    "PB",
-    "KL",
-  ];
+  const states = ["MH", "DL", "KA", "TN", "WB", "GJ", "RJ", "UP", "PB", "KL"];
   const rand = mulberry32(seed);
-  return states.map((s) => ({ state: s, flagged: Math.floor(rand() * 80) + 10 }));
+  return states.map((s) => ({
+    state: s,
+    flagged: Math.floor(rand() * 80) + 10,
+  }));
 }
 
 export function generateDonut(seed = Date.now()): DonutSlice[] {

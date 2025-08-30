@@ -22,7 +22,12 @@ export type GraphEdge = {
 const LANGS = ["en", "hi", "ta", "bn"];
 const REGIONS = ["north", "south", "east", "west"];
 
-export function generateGraph(nAccounts = 40, nHashtags = 20, nPosts = 60, seed = Date.now()) {
+export function generateGraph(
+  nAccounts = 40,
+  nHashtags = 20,
+  nPosts = 60,
+  seed = Date.now(),
+) {
   const rand = mulberry32(seed);
   const nodes: GraphNode[] = [];
   const edges: GraphEdge[] = [];
@@ -57,7 +62,7 @@ export function generateGraph(nAccounts = 40, nHashtags = 20, nPosts = 60, seed 
       timestamp: Date.now() - Math.floor(rand() * 1000 * 3600 * 24 * 7),
       lang: pick(LANGS, rand),
       region: pick(REGIONS, rand),
-      risk: +(rand()).toFixed(2) as unknown as number,
+      risk: +rand().toFixed(2) as unknown as number,
     });
   }
 
@@ -68,7 +73,12 @@ export function generateGraph(nAccounts = 40, nHashtags = 20, nPosts = 60, seed 
     const s = pick(allIds, rand);
     let t = pick(allIds, rand);
     if (t === s) t = pick(allIds, rand);
-    edges.push({ id: `e${i}`, source: s, target: t, type: pick(EdgeTypes, rand) });
+    edges.push({
+      id: `e${i}`,
+      source: s,
+      target: t,
+      type: pick(EdgeTypes, rand),
+    });
   }
 
   return { nodes, edges };

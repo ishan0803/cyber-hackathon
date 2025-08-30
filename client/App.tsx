@@ -28,11 +28,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="/graph" element={<Graph />} />
-          <Route path="/heatmap" element={<Heatmap />} />
-          <Route path="/topk" element={<TopK />} />
-          <Route path="/alerts" element={<Alerts />} />
-          <Route path="/audit" element={<Audit />} />
-          <Route path="/settings" element={<Settings />} />
+            <Route path="/heatmap" element={<Heatmap />} />
+            <Route path="/topk" element={<TopK />} />
+            <Route path="/alerts" element={<Alerts />} />
+            <Route path="/audit" element={<Audit />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ErrorBoundary>

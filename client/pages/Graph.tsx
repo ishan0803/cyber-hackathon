@@ -7,7 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { Drawer, DrawerContent, DrawerFooter, DrawerHeader } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+} from "@/components/ui/drawer";
 import { Badge } from "@/components/ui/badge";
 
 const langs = ["en", "hi", "ta", "bn"] as const;
@@ -25,17 +30,29 @@ export default function Graph() {
 
   const filtered = useMemo(() => {
     const cutoff = Date.now() - timeRange * 24 * 3600 * 1000;
-    const nodes = base.nodes.filter((n) => n.timestamp >= cutoff && (lang === "all" || n.lang === lang) && (region === "all" || n.region === region));
+    const nodes = base.nodes.filter(
+      (n) =>
+        n.timestamp >= cutoff &&
+        (lang === "all" || n.lang === lang) &&
+        (region === "all" || n.region === region),
+    );
     const ids = new Set(nodes.map((n) => n.id));
-    const edges = base.edges.filter((e) => ids.has(e.source) && ids.has(e.target));
+    const edges = base.edges.filter(
+      (e) => ids.has(e.source) && ids.has(e.target),
+    );
     return { nodes, edges };
   }, [base, timeRange, lang, region]);
 
   useEffect(() => {
     if (!cyRef.current) return;
     // Worker layout
-    const worker = new Worker(new URL("../workers/graphLayout.worker.ts", import.meta.url), { type: "module" });
-    worker.onmessage = (ev: MessageEvent<{ positions: Record<string, { x: number; y: number }> }>) => {
+    const worker = new Worker(
+      new URL("../workers/graphLayout.worker.ts", import.meta.url),
+      { type: "module" },
+    );
+    worker.onmessage = (
+      ev: MessageEvent<{ positions: Record<string, { x: number; y: number }> }>,
+    ) => {
       const cy = cyRef.current!;
       Object.entries(ev.data.positions).forEach(([id, p]) => {
         const node = cy.$id(id);
@@ -43,13 +60,30 @@ export default function Graph() {
       });
       cy.fit(undefined, 30);
     };
-    worker.postMessage({ ids: filtered.nodes.map((n) => n.id), seed: seed } as any);
+    worker.postMessage({
+      ids: filtered.nodes.map((n) => n.id),
+      seed: seed,
+    } as any);
     return () => worker.terminate();
   }, [filtered.nodes, seed]);
 
   const elements = useMemo(() => {
-    const n = filtered.nodes.map((node) => ({ data: { id: node.id, label: node.label, type: node.type, risk: node.risk } }));
-    const e = filtered.edges.map((edge) => ({ data: { id: edge.id, source: edge.source, target: edge.target, type: edge.type } }));
+    const n = filtered.nodes.map((node) => ({
+      data: {
+        id: node.id,
+        label: node.label,
+        type: node.type,
+        risk: node.risk,
+      },
+    }));
+    const e = filtered.edges.map((edge) => ({
+      data: {
+        id: edge.id,
+        source: edge.source,
+        target: edge.target,
+        type: edge.type,
+      },
+    }));
     return [...n, ...e] as any[];
   }, [filtered]);
 
@@ -59,25 +93,66 @@ export default function Graph() {
         <Card className="col-span-12 lg:col-span-3 p-4 bg-slate-900/60 border-slate-800/60">
           <div className="text-sm font-medium mb-2">Filters</div>
           <div className="space-y-3">
-            <label className="text-xs text-muted-foreground">Time range (days)</label>
-            <Slider min={1} max={14} step={1} value={[timeRange]} onValueChange={([v]) => setTimeRange(v)} />
+            <label className="text-xs text-muted-foreground">
+              Time range (days)
+            </label>
+            <Slider
+              min={1}
+              max={14}
+              step={1}
+              value={[timeRange]}
+              onValueChange={([v]) => setTimeRange(v)}
+            />
             <label className="text-xs text-muted-foreground">Language</label>
             <div className="flex gap-2 flex-wrap">
-              <Button size="sm" variant={lang === "all" ? "secondary" : "outline"} onClick={() => setLang("all")}>All</Button>
+              <Button
+                size="sm"
+                variant={lang === "all" ? "secondary" : "outline"}
+                onClick={() => setLang("all")}
+              >
+                All
+              </Button>
               {langs.map((l) => (
-                <Button key={l} size="sm" variant={lang === l ? "secondary" : "outline"} onClick={() => setLang(l)}>{l}</Button>
+                <Button
+                  key={l}
+                  size="sm"
+                  variant={lang === l ? "secondary" : "outline"}
+                  onClick={() => setLang(l)}
+                >
+                  {l}
+                </Button>
               ))}
             </div>
             <label className="text-xs text-muted-foreground">Region</label>
             <div className="flex gap-2 flex-wrap">
-              <Button size="sm" variant={region === "all" ? "secondary" : "outline"} onClick={() => setRegion("all")}>All</Button>
+              <Button
+                size="sm"
+                variant={region === "all" ? "secondary" : "outline"}
+                onClick={() => setRegion("all")}
+              >
+                All
+              </Button>
               {regions.map((r) => (
-                <Button key={r} size="sm" variant={region === r ? "secondary" : "outline"} onClick={() => setRegion(r)}>{r}</Button>
+                <Button
+                  key={r}
+                  size="sm"
+                  variant={region === r ? "secondary" : "outline"}
+                  onClick={() => setRegion(r)}
+                >
+                  {r}
+                </Button>
               ))}
             </div>
             <div className="flex items-center gap-2">
-              <input id="clusters" type="checkbox" checked={clustersOnly} onChange={(e) => setClustersOnly(e.target.checked)} />
-              <label htmlFor="clusters" className="text-sm">Coordinated clusters only</label>
+              <input
+                id="clusters"
+                type="checkbox"
+                checked={clustersOnly}
+                onChange={(e) => setClustersOnly(e.target.checked)}
+              />
+              <label htmlFor="clusters" className="text-sm">
+                Coordinated clusters only
+              </label>
             </div>
           </div>
         </Card>
@@ -86,7 +161,9 @@ export default function Graph() {
             elements={elements}
             cy={(cy) => {
               cyRef.current = cy;
-              cy.on("tap", "node", (evt) => setSelected(evt.target.data() as any));
+              cy.on("tap", "node", (evt) =>
+                setSelected(evt.target.data() as any),
+              );
             }}
             style={{ width: "100%", height: "70vh" }}
             stylesheet={styles}
@@ -99,7 +176,10 @@ export default function Graph() {
           <DrawerHeader>
             <div className="text-lg font-semibold">Node Inspector</div>
             {selected && (
-              <div className="text-sm text-muted-foreground">{selected.label} • {selected.type} • Risk {Math.round(selected.risk*100)}%</div>
+              <div className="text-sm text-muted-foreground">
+                {selected.label} • {selected.type} • Risk{" "}
+                {Math.round(selected.risk * 100)}%
+              </div>
             )}
           </DrawerHeader>
           <div className="p-4 space-y-2">
@@ -109,7 +189,9 @@ export default function Graph() {
                 <Badge variant="secondary">{selected.region}</Badge>
               </div>
             )}
-            <Button size="sm" onClick={() => traceOrigin()} className="mt-2">Trace origin</Button>
+            <Button size="sm" onClick={() => traceOrigin()} className="mt-2">
+              Trace origin
+            </Button>
           </div>
           <DrawerFooter />
         </DrawerContent>
@@ -136,10 +218,46 @@ export default function Graph() {
 }
 
 const styles: cytoscape.Stylesheet[] = [
-  { selector: "node", style: { width: 16, height: 16, label: "data(label)", color: "#94a3b8", "font-size": 8, 'text-valign': 'bottom', 'text-margin-y': -6 } },
-  { selector: 'node[type="account"]', style: { shape: 'ellipse', 'background-color': '#38bdf8' } },
-  { selector: 'node[type="hashtag"]', style: { shape: 'round-rectangle', 'background-color': '#22d3ee' } },
-  { selector: 'node[type="post"]', style: { shape: 'rectangle', 'background-color': '#818cf8' } },
-  { selector: 'edge', style: { width: 1, 'line-color': '#334155', 'target-arrow-color': '#334155', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier' } },
-  { selector: '.glow', style: { 'line-color': '#22d3ee', 'target-arrow-color': '#22d3ee', 'width': 2 } },
+  {
+    selector: "node",
+    style: {
+      width: 16,
+      height: 16,
+      label: "data(label)",
+      color: "#94a3b8",
+      "font-size": 8,
+      "text-valign": "bottom",
+      "text-margin-y": -6,
+    },
+  },
+  {
+    selector: 'node[type="account"]',
+    style: { shape: "ellipse", "background-color": "#38bdf8" },
+  },
+  {
+    selector: 'node[type="hashtag"]',
+    style: { shape: "round-rectangle", "background-color": "#22d3ee" },
+  },
+  {
+    selector: 'node[type="post"]',
+    style: { shape: "rectangle", "background-color": "#818cf8" },
+  },
+  {
+    selector: "edge",
+    style: {
+      width: 1,
+      "line-color": "#334155",
+      "target-arrow-color": "#334155",
+      "target-arrow-shape": "triangle",
+      "curve-style": "bezier",
+    },
+  },
+  {
+    selector: ".glow",
+    style: {
+      "line-color": "#22d3ee",
+      "target-arrow-color": "#22d3ee",
+      width: 2,
+    },
+  },
 ];

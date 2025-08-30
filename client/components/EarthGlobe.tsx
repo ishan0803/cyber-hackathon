@@ -14,7 +14,13 @@ function latLonToVec3(lat: number, lon: number, radius: number) {
   return new THREE.Vector3(x, y, z);
 }
 
-function HeatPulses({ points, radius = 1.02 }: { points: HeatPoint[]; radius?: number }) {
+function HeatPulses({
+  points,
+  radius = 1.02,
+}: {
+  points: HeatPoint[];
+  radius?: number;
+}) {
   const group = useRef<THREE.Group>(null!);
   useFrame(({ clock }) => {
     if (!group.current) return;
@@ -62,16 +68,27 @@ export function EarthGlobe({ points }: { points: HeatPoint[] }) {
         <Stars radius={50} depth={20} count={2000} factor={2} fade />
         <Rotator>
           <Sphere args={[1, 64, 64]}>
-            <meshPhongMaterial color="#0b1220" emissive="#0b1220" shininess={8} />
+            <meshPhongMaterial
+              color="#0b1220"
+              emissive="#0b1220"
+              shininess={8}
+            />
           </Sphere>
           <mesh>
             <sphereGeometry args={[1.03, 64, 64]} />
             <meshBasicMaterial color={atmosphere} transparent opacity={0.06} />
           </mesh>
-          <gridHelper args={[10, 30, 0x1f2937, 0x111827]} position={[0, -1.2, 0]} />
+          <gridHelper
+            args={[10, 30, 0x1f2937, 0x111827]}
+            position={[0, -1.2, 0]}
+          />
           <HeatPulses points={points} />
         </Rotator>
-        <OrbitControls enablePan={false} enableZoom={false} autoRotate={false} />
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          autoRotate={false}
+        />
       </Canvas>
     </div>
   );

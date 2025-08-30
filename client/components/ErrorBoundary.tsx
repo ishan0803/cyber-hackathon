@@ -20,7 +20,9 @@ export class ErrorBoundary extends React.Component<Props, State> {
       return (
         <div className="p-8 text-center">
           <h2 className="text-xl font-semibold mb-2">Something went wrong</h2>
-          <p className="text-sm text-muted-foreground">Try refreshing the page.</p>
+          <p className="text-sm text-muted-foreground">
+            Try refreshing the page.
+          </p>
         </div>
       );
     }

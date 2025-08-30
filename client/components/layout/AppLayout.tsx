@@ -50,8 +50,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <Sidebar variant="inset">
         <SidebarHeader className="px-3 py-4">
           <div className="flex items-center gap-2 px-2">
-            <div className="size-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center font-bold text-cyan-300">D</div>
-            <span className="font-semibold text-sm tracking-wide">Digital Campaign Intelligence</span>
+            <div className="size-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center font-bold text-cyan-300">
+              D
+            </div>
+            <span className="font-semibold text-sm tracking-wide">
+              Digital Campaign Intelligence
+            </span>
           </div>
         </SidebarHeader>
         <SidebarSeparator />
@@ -61,8 +65,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <SidebarMenu>
                 {NAV.map((item) => (
                   <SidebarMenuItem key={item.to}>
-                    <SidebarMenuButton asChild isActive={loc.pathname === item.to}>
-                      <Link to={item.to}><span>{item.label}</span></Link>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={loc.pathname === item.to}
+                    >
+                      <Link to={item.to}>
+                        <span>{item.label}</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -71,7 +80,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter className="mt-auto">
-          <div className="px-2 pb-2 text-xs text-muted-foreground">{user?.role?.toUpperCase()}</div>
+          <div className="px-2 pb-2 text-xs text-muted-foreground">
+            {user?.role?.toUpperCase()}
+          </div>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
@@ -81,13 +92,31 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="flex-1" />
             <div className="hidden md:flex items-center gap-2">
               <div className="hidden lg:block w-72">
-                <Input placeholder="Search accounts, hashtags, posts..." className="bg-slate-900 border-slate-800 placeholder:text-slate-500" aria-label="Search" />
+                <Input
+                  placeholder="Search accounts, hashtags, posts..."
+                  className="bg-slate-900 border-slate-800 placeholder:text-slate-500"
+                  aria-label="Search"
+                />
               </div>
-              <Button variant="ghost" size="icon" aria-pressed={mode === 'dark'} onClick={toggleMode}>
-                {mode === 'dark' ? <SunMedium className="text-amber-300" /> : <MoonStar />}
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-pressed={mode === "dark"}
+                onClick={toggleMode}
+              >
+                {mode === "dark" ? (
+                  <SunMedium className="text-amber-300" />
+                ) : (
+                  <MoonStar />
+                )}
                 <span className="sr-only">Toggle dark mode</span>
               </Button>
-              <Button variant={highContrast ? "secondary" : "ghost"} size="sm" onClick={toggleHighContrast} aria-pressed={highContrast}>
+              <Button
+                variant={highContrast ? "secondary" : "ghost"}
+                size="sm"
+                onClick={toggleHighContrast}
+                aria-pressed={highContrast}
+              >
                 HC
               </Button>
               <Button variant="ghost" size="icon" aria-label="Notifications">
@@ -104,14 +133,24 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>
-                    <div className="text-sm font-medium">{user?.name || "User"}</div>
-                    <div className="text-xs text-muted-foreground">{user?.email}</div>
+                    <div className="text-sm font-medium">
+                      {user?.name || "User"}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {user?.email}
+                    </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <Link to="/settings" className="block">
-                    <DropdownMenuItem className={cn("gap-2")}> <Settings className="size-4" /> Settings</DropdownMenuItem>
+                    <DropdownMenuItem className={cn("gap-2")}>
+                      {" "}
+                      <Settings className="size-4" /> Settings
+                    </DropdownMenuItem>
                   </Link>
-                  <DropdownMenuItem onClick={logout} className="gap-2 text-red-400">
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="gap-2 text-red-400"
+                  >
                     <LogOut className="size-4" /> Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
