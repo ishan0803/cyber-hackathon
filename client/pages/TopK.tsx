@@ -27,9 +27,9 @@ export default function TopK() {
         </div>
       </div>
       <div className="grid grid-cols-12 gap-4">
-        <section className="col-span-12 lg:col-span-4 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
+        <section className="col-span-12 lg:col-span-4 min-w-0 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
           <h3 className="font-semibold mb-2">Top Accounts</h3>
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto"><table className="w-full text-sm table-fixed">
             <thead className="text-slate-400">
               <tr><th className="text-left">Handle</th><th className="text-right">Score</th><th>Risk</th><th></th></tr>
             </thead>
@@ -43,11 +43,11 @@ export default function TopK() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </section>
-        <section className="col-span-12 lg:col-span-4 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
+        <section className="col-span-12 lg:col-span-4 min-w-0 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
           <h3 className="font-semibold mb-2">Top Hashtags</h3>
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto"><table className="w-full text-sm table-fixed">
             <thead className="text-slate-400">
               <tr><th className="text-left">Hashtag</th><th className="text-right">Count</th><th className="text-right">Radius</th></tr>
             </thead>
@@ -60,24 +60,24 @@ export default function TopK() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </section>
-        <section className="col-span-12 lg:col-span-4 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
+        <section className="col-span-12 lg:col-span-4 min-w-0 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
           <h3 className="font-semibold mb-2">Top Posts</h3>
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto"><table className="w-full text-sm table-fixed">
             <thead className="text-slate-400">
               <tr><th className="text-left">Preview</th><th className="text-right">Engagement</th><th>Risk</th></tr>
             </thead>
             <tbody>
               {pst.slice(0,20).map((p)=> (
                 <tr key={p.id} className="border-t border-slate-800/70">
-                  <td className="truncate max-w-[260px]" title={p.preview}>{p.preview}</td>
+                  <td><div className="truncate max-w-[220px] md:max-w-[240px] xl:max-w-[260px]" title={p.preview}>{p.preview}</div></td>
                   <td className="text-right tabular-nums">{p.engagement}</td>
                   <td className="text-center">{badge(p.risk)}</td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </section>
       </div>
     </AppLayout>
