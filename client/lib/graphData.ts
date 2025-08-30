@@ -30,7 +30,7 @@ export function generateGraph(nAccounts = 40, nHashtags = 20, nPosts = 60, seed 
   for (let i = 0; i < nAccounts; i++) {
     nodes.push({
       id: `a${i}`,
-      label: `@acct_${i}`,
+      label: genHandle(rand),
       type: "account",
       timestamp: Date.now() - Math.floor(rand() * 1000 * 3600 * 24 * 7),
       lang: pick(LANGS, rand),
