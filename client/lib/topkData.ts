@@ -4,9 +4,40 @@ export type PostRow = { id: string; preview: string; engagement: number; risk: '
 
 export function generateTopK(seed=Date.now()) {
   const rand = mulberry32(seed);
-  const accounts: AccountRow[] = Array.from({ length: 50 }).map((_,i)=>({ id:`a${i}`, handle:`@acct_${i}`, risk: pick(['low','med','high'], rand), score: Math.round(rand()*1000), spark: Array.from({length:12}).map(()=>Math.round(rand()*10)) }));
-  const hashtags: HashtagRow[] = Array.from({ length: 40 }).map((_,i)=>({ id:`h${i}`, tag:`#tag_${i}`, count: Math.round(rand()*5000), firstSeen: new Date(Date.now()-rand()*7*864e5).toISOString(), radius: +(rand()*10).toFixed(2) as unknown as number }));
-  const posts: PostRow[] = Array.from({ length: 60 }).map((_,i)=>({ id:`p${i}`, preview:`Sample post ${i} with content...`, engagement: Math.round(rand()*20000), risk: pick(['low','med','high'], rand) }));
+  const firstNames = ["Aarav","Vivaan","Aditya","Vihaan","Arjun","Krishna","Ishaan","Rohan","Rahul","Karthik","Sanjay","Amit","Vikram","Ananya","Aadhya","Diya","Ishita","Kavya","Meera","Nandini","Priya","Riya","Sneha","Tanvi"];
+  const lastNames = ["Sharma","Verma","Gupta","Iyer","Reddy","Naidu","Patel","Singh","Khan","Das","Ghosh","Chatterjee","Nair","Menon","Banerjee","Mukherjee","Yadav","Kulkarni","Pillai","Rao"];
+  const hashtagPool = [
+    "#DigitalIndia","#MakeInIndia","#Chandrayaan","#ISRO","#Cricket","#StartupIndia","#VandeBharat","#LokSabha","#Bharat","#Atmanirbhar",
+    "#SwachhBharat","#UPI","#G20India","#Kashmir","#Kerala","#Punjab","#Bengal","#Northeast","#WomensPremierLeague","#JaiHind",
+    "#भारत","#हिंदी","#जय_हिंद","#Tamil","#Mumbai","#Delhi","#Chennai","#Bengaluru","#Hyderabad","#RamMandir"
+  ];
+  const topics = [
+    "election rally", "space mission milestone", "rail corridor upgrade", "flood relief efforts", "T20 clash tonight",
+    "UPI adoption in rural India", "women-led startup", "metro expansion", "Ayushman Bharat drive", "tourism boost"
+  ];
+
+  const accounts: AccountRow[] = Array.from({ length: 50 }).map((_,i)=>{
+    const f = pick(firstNames, rand); const l = pick(lastNames, rand);
+    const num = Math.floor(rand()*90+10);
+    const handle = `@${f.toLowerCase()}${l[0].toLowerCase()}${num}`;
+    return { id:`a${i}`, handle, risk: pick(['low','med','high'], rand), score: Math.round(rand()*1000), spark: Array.from({length:12}).map(()=>Math.round(rand()*10)) };
+  });
+
+  const hashtags: HashtagRow[] = Array.from({ length: 40 }).map((_,i)=>({
+    id:`h${i}`,
+    tag: pick(hashtagPool, rand),
+    count: 500 + Math.round(rand()*9500),
+    firstSeen: new Date(Date.now()-rand()*7*864e5).toISOString(),
+    radius: +(2 + rand()*8).toFixed(2) as unknown as number,
+  }));
+
+  const posts: PostRow[] = Array.from({ length: 60 }).map((_,i)=>{
+    const acc = accounts[Math.floor(rand()*accounts.length)].handle;
+    const tag = pick(hashtagPool, rand);
+    const topic = pick(topics, rand);
+    const preview = `${acc} on ${topic} ${tag} — what do you think?`;
+    return { id:`p${i}`, preview, engagement: 1000 + Math.round(rand()*30000), risk: pick(['low','med','high'], rand) };
+  });
   return { accounts, hashtags, posts };
 }
 
