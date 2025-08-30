@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
+import { genAntiTag } from "@/lib/synthetic";
 
 type AlertItem = { id: string; priority: 'low'|'med'|'high'; title: string; evidence: string };
 
