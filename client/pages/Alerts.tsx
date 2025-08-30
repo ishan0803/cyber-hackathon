@@ -11,7 +11,7 @@ type AlertItem = { id: string; priority: 'low'|'med'|'high'; title: string; evid
 function genAlerts(seed=Date.now()): AlertItem[] {
   const rand = mulberry32(seed);
   const p = ['low','med','high'] as const;
-  return Array.from({length:30}).map((_,i)=>({ id:`al${i}`, priority: p[Math.floor(rand()*3)], title:`Coordinated spread detected on ${genAntiTag(rand)}`, evidence:`https://example.com/evidence/${i}` }));
+  return Array.from({length:30}).map((_,i)=>({ id:`al${i}`, priority: p[Math.floor(rand()*3)], title:`Coordinated spread detected on ${genAntiTag(rand)}`, evidence: genEvidenceUrl(rand) }));
 }
 
 export default function Alerts(){
@@ -74,3 +74,17 @@ export default function Alerts(){
 }
 
 function mulberry32(a: number) {return function () {let t = (a += 0x6d2b79f5); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }}
+
+function genEvidenceUrl(rand: () => number) {
+  const providers = ['twitter', 'reddit'] as const;
+  const p = providers[Math.floor(rand()*providers.length)];
+  if (p === 'twitter') {
+    const user = ['indiapolitics','newswire','trendwatch','mediaaudit','factcheck'][Math.floor(rand()*5)];
+    const id = Math.floor(1e17 + rand()*9e17).toString();
+    return `https://twitter.com/${user}/status/${id}`;
+  } else {
+    const sub = ['india','Chodi','IndianPoliticalMemes','news','worldnews'][Math.floor(rand()*5)];
+    const id = Math.random().toString(36).slice(2, 9);
+    return `https://www.reddit.com/r/${sub}/comments/${id}/synthetic_thread/`;
+  }
+}
