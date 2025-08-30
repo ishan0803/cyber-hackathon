@@ -63,9 +63,13 @@ export default function Heatmap(){
             <div className="text-sm text-muted-foreground">Chronological events and linked posts</div>
           </DrawerHeader>
           <div className="p-4 space-y-2 text-sm">
-            {Array.from({length:6}).map((_,i)=>(
-              <div key={i} className="border border-slate-800 rounded p-2">Event {i+1} – top hashtags: #tag_{i}, #tag_{i+1}</div>
-            ))}
+            {Array.from({length:6}).map((_,i)=>{
+              const rand = () => Math.random();
+              const tags = [genAntiTag(rand), genAntiTag(rand)];
+              return (
+                <div key={i} className="border border-slate-800 rounded p-2">Event {i+1} – top hashtags: {tags[0]}, {tags[1]}</div>
+              );
+            })}
           </div>
         </DrawerContent>
       </Drawer>
