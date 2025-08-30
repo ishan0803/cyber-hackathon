@@ -1,7 +1,7 @@
 import { AppLayout } from "@/components/layout/AppLayout";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 
@@ -57,7 +57,7 @@ export default function Alerts(){
       <Dialog open={!!open} onOpenChange={(o)=>!o && setOpen(null)}>
         <DialogContent className="bg-slate-900 border-slate-800 max-w-2xl">
           <DialogHeader>
-            <div className="text-lg font-semibold">Alert Detail</div>
+            <DialogTitle className="text-lg">Alert Detail</DialogTitle>
           </DialogHeader>
           {open && (
             <div className="space-y-2 text-sm">
