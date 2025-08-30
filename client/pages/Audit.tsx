@@ -78,3 +78,50 @@ async function sha256(input: string) {
   const hash = await crypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
+
+function generateAuditBase(n: number, seed: number): Array<Omit<LedgerEntry,'prevHash'|'hash'>> {
+  const rand = mulberry32(seed);
+  const out: Array<Omit<LedgerEntry,'prevHash'|'hash'>> = [];
+  for (let i = 0; i < n; i++) {
+    const ts = new Date(Date.now() - i * 45 * 60_000).toISOString(); // every 45 min
+    const action = genAction(rand);
+    out.push({ index: i, timestamp: ts, action });
+  }
+  return out;
+}
+
+function genAction(rand: () => number) {
+  const actor = genHandle(rand);
+  const tag = genAntiTag(rand);
+  const choice = Math.floor(rand() * 8);
+  switch (choice) {
+    case 0:
+      return `INGEST_TWEET ${actor} → ${socialUrl('twitter', rand)} ${tag}`;
+    case 1:
+      return `INGEST_REDDIT ${actor} → ${socialUrl('reddit', rand)} ${tag}`;
+    case 2:
+      return `ALERT_RAISED ${tag} priority=${pick(['low','med','high'], rand)}`;
+    case 3:
+      return `THRESHOLD_UPDATED velocity=${Math.round(rand()*100)} engagement=${Math.round(rand()*100)}`;
+    case 4:
+      return `ORIGIN_TRACE start=${actor} depth=${Math.floor(rand()*4)+1}`;
+    case 5:
+      return `MODEL_SCORE ${actor} risk=${(rand()*100).toFixed(1)}% tag=${tag}`;
+    case 6:
+      return `EXPORT_REPORT type=csv rows=${Math.floor(rand()*5000)+500}`;
+    default:
+      return `LEDGER_VERIFY result=ok`;
+  }
+}
+
+function socialUrl(kind: 'twitter'|'reddit', rand: () => number) {
+  if (kind === 'twitter') {
+    const user = ['indiapolitics','newswire','trendwatch','mediaaudit','factcheck'][Math.floor(rand()*5)];
+    const id = Math.floor(1e17 + rand()*9e17).toString();
+    return `https://twitter.com/${user}/status/${id}`;
+  } else {
+    const sub = ['india','Chodi','IndianPoliticalMemes','news','worldnews'][Math.floor(rand()*5)];
+    const id = Math.random().toString(36).slice(2, 9);
+    return `https://www.reddit.com/r/${sub}/comments/${id}/synthetic_thread/`;
+  }
+}
