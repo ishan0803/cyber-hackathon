@@ -5,6 +5,8 @@ import { exportCSV, exportJSON } from "@/lib/export";
 
 export type LedgerEntry = { index: number; timestamp: string; action: string; prevHash: string; hash: string };
 
+import { genAntiTag, genHandle, mulberry32, pick } from "@/lib/synthetic";
+
 export default function Audit() {
   const [entries, setEntries] = useState<LedgerEntry[]>([]);
   const [valid, setValid] = useState<boolean | null>(null);
