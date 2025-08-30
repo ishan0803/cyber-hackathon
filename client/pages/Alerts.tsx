@@ -10,7 +10,7 @@ type AlertItem = { id: string; priority: 'low'|'med'|'high'; title: string; evid
 function genAlerts(seed=Date.now()): AlertItem[] {
   const rand = mulberry32(seed);
   const p = ['low','med','high'] as const;
-  return Array.from({length:30}).map((_,i)=>({ id:`al${i}`, priority: p[Math.floor(rand()*3)], title:`Potential coordinated spread ${i}`, evidence:`https://example.com/evidence/${i}` }));
+  return Array.from({length:30}).map((_,i)=>({ id:`al${i}`, priority: p[Math.floor(rand()*3)], title:`Coordinated spread detected on ${genAntiTag(rand)}`, evidence:`https://example.com/evidence/${i}` }));
 }
 
 export default function Alerts(){
