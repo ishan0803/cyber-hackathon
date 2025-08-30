@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { geoMercator, geoPath } from "d3-geo";
 import { Slider } from "@/components/ui/slider";
 import { Drawer, DrawerContent, DrawerHeader } from "@/components/ui/drawer";
+import { genAntiTag } from "@/lib/synthetic";
 
 type Feature = { type: string; properties: { NAME_1?: string; st_nm?: string }; geometry: any };
 
