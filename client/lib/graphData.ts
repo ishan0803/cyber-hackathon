@@ -1,4 +1,5 @@
 export type NodeType = "hashtag" | "account" | "post";
+import { genHandle, genAntiTag, mulberry32, pick } from "@/lib/synthetic";
 export type EdgeType = "mention" | "reshare" | "retweet";
 
 export type GraphNode = {
