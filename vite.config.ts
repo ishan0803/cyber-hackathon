@@ -13,6 +13,9 @@ export default defineConfig(({ mode }) => ({
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
   },
+  worker: {
+    format: 'es',
+  },
   build: {
     outDir: "dist/spa",
   },

@@ -47,7 +47,7 @@ export default function Graph() {
     if (!cyRef.current) return;
     // Worker layout
     const worker = new Worker(
-      new URL("../workers/graphLayout.worker.ts", import.meta.url),
+      new URL("../workers/graphLayout.worker.ts", import.meta.url).href,
       { type: "module" },
     );
     worker.onmessage = (
