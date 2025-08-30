@@ -7,9 +7,10 @@ export function generateTopK(seed=Date.now()) {
   const firstNames = ["Aarav","Vivaan","Aditya","Vihaan","Arjun","Krishna","Ishaan","Rohan","Rahul","Karthik","Sanjay","Amit","Vikram","Ananya","Aadhya","Diya","Ishita","Kavya","Meera","Nandini","Priya","Riya","Sneha","Tanvi"];
   const lastNames = ["Sharma","Verma","Gupta","Iyer","Reddy","Naidu","Patel","Singh","Khan","Das","Ghosh","Chatterjee","Nair","Menon","Banerjee","Mukherjee","Yadav","Kulkarni","Pillai","Rao"];
   const hashtagPool = [
-    "#DigitalIndia","#MakeInIndia","#Chandrayaan","#ISRO","#Cricket","#StartupIndia","#VandeBharat","#LokSabha","#Bharat","#Atmanirbhar",
-    "#SwachhBharat","#UPI","#G20India","#Kashmir","#Kerala","#Punjab","#Bengal","#Northeast","#WomensPremierLeague","#JaiHind",
-    "#भारत","#हिंदी","#जय_हिंद","#Tamil","#Mumbai","#Delhi","#Chennai","#Bengaluru","#Hyderabad","#RamMandir"
+    "#AntiIndiaNarrative","#BoycottIndia","#IndiaOut","#ShameOnIndia","#StopIndia",
+    "#PropagandaWatch","#FakeNewsIndia","#AgainstIndiaPolicy","#AntiIndiaTrend","#BreakIndiaAgenda",
+    "#DownWithIndia","#AntiIndiaCampaign","#BoycottBollywood","#CensorIndia","#BanIndiaProducts",
+    "#anti_india","#स्वदेश_विरोध","#भारत_विरो���ी","#StopIndianMedia","#ExposeIndia"
   ];
   const topics = [
     "election rally", "space mission milestone", "rail corridor upgrade", "flood relief efforts", "T20 clash tonight",
