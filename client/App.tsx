@@ -7,7 +7,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Overview from "./pages/Overview";
-import Placeholder from "./pages/Placeholder";
+import Graph from "./pages/Graph";
+import Heatmap from "./pages/Heatmap";
+import TopK from "./pages/TopK";
+import Alerts from "./pages/Alerts";
+import Audit from "./pages/Audit";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
@@ -22,12 +27,12 @@ const App = () => (
         <ErrorBoundary>
           <Routes>
             <Route path="/" element={<Overview />} />
-            <Route path="/graph" element={<Placeholder title="Graph Explorer" description="Interactive force-directed graph with filters, node inspector, and worker-based layout. Ask to materialize this page to proceed." />} />
-            <Route path="/heatmap" element={<Placeholder title="India Heatmap" description="Choropleth with drill-down, time scrubber, and tooltips. Ask to materialize this page to proceed." />} />
-            <Route path="/topk" element={<Placeholder title="Top-K Panels" description="Accounts, Hashtags, and Posts tables with search, sort, pagination, and export. Ask to materialize this page to proceed." />} />
-            <Route path="/alerts" element={<Placeholder title="Alerts" description="Configurable thresholds and alert details. Ask to materialize this page to proceed." />} />
-            <Route path="/audit" element={<Placeholder title="Audit & Blockchain" description="Ledger visualization and verification. Ask to materialize this page to proceed." />} />
-            <Route path="/settings" element={<Placeholder title="Settings" description="Preferences, legal & ethics, data retention, API sources. Ask to materialize this page to proceed." />} />
+            <Route path="/graph" element={<Graph />} />
+          <Route path="/heatmap" element={<Heatmap />} />
+          <Route path="/topk" element={<TopK />} />
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/audit" element={<Audit />} />
+          <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ErrorBoundary>
