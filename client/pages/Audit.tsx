@@ -52,17 +52,26 @@ export default function Audit() {
         {valid!=null && (
           <div className={valid?"text-emerald-300":"text-red-300"}>{valid?"Hash valid ✓":"Tampered ✗"}</div>
         )}
-        <div className="mt-3 overflow-auto">
-          <table className="w-full text-sm">
-            <thead className="text-slate-400"><tr><th>#</th><th>Timestamp</th><th>Action</th><th>Prev Hash</th><th>Hash</th></tr></thead>
+        <div className="mt-3 overflow-y-auto overflow-x-hidden">
+          <table className="w-full text-sm table-auto">
+            <colgroup>
+              <col className="w-[6%]" />
+              <col className="w-[24%]" />
+              <col className="w-[40%]" />
+              <col className="w-[15%]" />
+              <col className="w-[15%]" />
+            </colgroup>
+            <thead className="text-slate-400">
+              <tr><th>#</th><th>Timestamp</th><th>Action</th><th>Prev Hash</th><th>Hash</th></tr>
+            </thead>
             <tbody>
               {entries.map((e)=> (
-                <tr key={e.index} className="border-t border-slate-800/70">
+                <tr key={e.index} className="border-t border-slate-800/70 align-top">
                   <td className="tabular-nums">{e.index}</td>
-                  <td>{e.timestamp}</td>
-                  <td>{e.action}</td>
-                  <td className="truncate max-w-[240px]" title={e.prevHash}>{e.prevHash}</td>
-                  <td className="truncate max-w-[240px]" title={e.hash}>{e.hash}</td>
+                  <td className="break-words">{e.timestamp}</td>
+                  <td className="whitespace-pre-wrap break-words break-all">{e.action}</td>
+                  <td title={e.prevHash}><div className="break-all">{e.prevHash}</div></td>
+                  <td title={e.hash}><div className="break-all">{e.hash}</div></td>
                 </tr>
               ))}
             </tbody>
