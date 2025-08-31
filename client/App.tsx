@@ -18,6 +18,7 @@ import Campaigns from "./pages/Campaigns";
 import Classifier from "./pages/Classifier";
 import Normalizer from "./pages/Normalizer";
 import Login from "./pages/Login";
+import Landing from "./pages/Landing";
 import { useAuth } from "@/hooks/useAuth";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
@@ -37,9 +38,10 @@ const App = () => (
       <BrowserRouter>
         <ErrorBoundary>
           <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route
-              path="/"
+              path="/dashboard"
               element={<ProtectedRoute element={<Overview />} />}
             />
             <Route
