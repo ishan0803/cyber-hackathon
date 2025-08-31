@@ -24,7 +24,7 @@ export default function Login() {
 
   return (
     <div className="min-h-svh grid place-items-center p-4 relative">
-      <AnimatedGrid3DBackground />
+      <AnimatedNetworkBackground />
       <div className="w-full max-w-md rounded-xl border border-slate-800/60 bg-slate-900/70 p-6 shadow-2xl backdrop-blur">
         <div className="mb-4 text-center">
           <div className="mx-auto size-12 rounded-lg bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center font-bold text-cyan-300">
