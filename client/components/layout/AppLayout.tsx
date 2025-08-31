@@ -31,7 +31,7 @@ import { Bell, LogOut, MoonStar, Settings, SunMedium } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { to: "/", label: "Overview" },
+  { to: "/dashboard", label: "Overview" },
   { to: "/campaigns", label: "Coordinated Campaigns" },
   { to: "/classifier", label: "Classifier" },
   { to: "/normalizer", label: "Normalizer" },
