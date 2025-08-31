@@ -64,6 +64,9 @@ export function useAuth() {
     if (!acc) return false;
     const { password: _pw, username: _un, ...u } = acc;
     setUser(u);
+    try {
+      localStorage.setItem(USER_KEY, JSON.stringify(u));
+    } catch {}
     return true;
   }
 
