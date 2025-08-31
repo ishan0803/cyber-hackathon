@@ -60,9 +60,12 @@ export function AnimatedNetworkBackground() {
 
       // update nodes
       for (const n of nodes) {
-        n.x += n.vx; n.y += n.vy;
-        if (n.x < -20) n.x = w + 20; if (n.x > w + 20) n.x = -20;
-        if (n.y < -20) n.y = h + 20; if (n.y > h + 20) n.y = -20;
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < -20) n.x = w + 20;
+        if (n.x > w + 20) n.x = -20;
+        if (n.y < -20) n.y = h + 20;
+        if (n.y > h + 20) n.y = -20;
         // subtle drift
         n.vx += (Math.random() - 0.5) * 0.01;
         n.vx = Math.max(-0.5, Math.min(0.5, n.vx));
@@ -111,5 +114,7 @@ export function AnimatedNetworkBackground() {
     };
   }, []);
 
-  return <canvas ref={ref} className="fixed inset-0 -z-10" aria-hidden="true" />;
+  return (
+    <canvas ref={ref} className="fixed inset-0 -z-10" aria-hidden="true" />
+  );
 }
