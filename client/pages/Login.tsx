@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
-import { AnimatedGrid3DBackground } from "@/components/AnimatedGrid3DBackground";
+import { AnimatedNetworkBackground } from "@/components/AnimatedNetworkBackground";
 import { toast } from "sonner";
 
 export default function Login() {
