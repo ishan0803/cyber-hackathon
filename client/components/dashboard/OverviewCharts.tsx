@@ -48,7 +48,10 @@ export function TrendChart({ data }: { data: TimePoint[] }) {
             contentStyle={{
               background: "#0b1220",
               border: "1px solid #1e293b",
+              color: "#e2e8f0",
             }}
+            labelStyle={{ color: "#e2e8f0" }}
+            itemStyle={{ color: "#e2e8f0" }}
           />
           <Area
             type="monotone"
@@ -90,7 +93,10 @@ export function StateBarChart({ data }: { data: StateBar[] }) {
             contentStyle={{
               background: "#0b1220",
               border: "1px solid #1e293b",
+              color: "#e2e8f0",
             }}
+            labelStyle={{ color: "#e2e8f0" }}
+            itemStyle={{ color: "#e2e8f0" }}
           />
           <Bar dataKey="flagged" fill="#06b6d4" radius={[6, 6, 0, 0]} />
         </BarChart>
@@ -123,7 +129,10 @@ export function SentimentDonut({ data }: { data: DonutSlice[] }) {
             contentStyle={{
               background: "#0b1220",
               border: "1px solid #1e293b",
+              color: "#e2e8f0",
             }}
+            labelStyle={{ color: "#e2e8f0" }}
+            itemStyle={{ color: "#e2e8f0" }}
           />
         </PieChart>
       </ResponsiveContainer>
