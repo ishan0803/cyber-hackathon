@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import AppLayout from "./Index";
+import { AppLayout } from "@/components/layout/AppLayout";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { generateCampaignClusters } from "@/lib/campaigns";
