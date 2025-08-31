@@ -2,7 +2,6 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { AppLayout } from "@/components/layout/AppLayout";
 import { useAuth, type Account } from "@/hooks/useAuth";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
