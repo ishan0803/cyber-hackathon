@@ -53,9 +53,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <Sidebar variant="inset">
         <SidebarHeader className="px-3 py-4">
           <div className="flex items-center gap-2 px-2">
-            <div className="size-7 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center font-bold text-cyan-300">
-              D
-            </div>
             <span className="font-semibold text-sm tracking-wide">
               Digital Campaign Intelligence
             </span>
