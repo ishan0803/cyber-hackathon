@@ -16,9 +16,17 @@ export function generateCampaignClusters(count = 20, seed = Date.now()): Campaig
   for (let i = 0; i < count; i++) {
     const size = Math.floor(rand() * 80) + 20; // 20..99
     const tag = genAntiTag(rand);
-    const accs = Array.from({ length: 6 }).map(() => genHandle(rand));
+    // ensure 6 unique accounts
+    const accsSet = new Set<string>();
+    while (accsSet.size < 6) accsSet.add(genHandle(rand));
+    const accs = Array.from(accsSet);
+    // ensure unique hashtags and avoid duplicating the main tag
     const extraTags = new Set<string>();
-    while (extraTags.size < 3) extraTags.add(genAntiTag(rand));
+    while (extraTags.size < 3) {
+      const tCandidate = genAntiTag(rand);
+      if (tCandidate !== tag) extraTags.add(tCandidate);
+    }
+    const allTagsUnique = Array.from(new Set([tag, ...Array.from(extraTags)]));
     const t = new Date(base + i * (1000 * 60 * 3) + Math.floor(rand() * 120000));
     clusters.push({
       id: `cc_${i}`,
@@ -26,7 +34,7 @@ export function generateCampaignClusters(count = 20, seed = Date.now()): Campaig
       hashtag: tag,
       time: t.toISOString(),
       linkedAccounts: accs,
-      linkedHashtags: [tag, ...Array.from(extraTags)].slice(0, 3),
+      linkedHashtags: allTagsUnique.slice(0, 3),
     });
   }
   return clusters;
