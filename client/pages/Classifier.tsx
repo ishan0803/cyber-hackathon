@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ANTI_INDIA_HASHTAGS } from "@/lib/synthetic";
 
@@ -23,15 +23,11 @@ export default function Classifier() {
       <section className="rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
         <h3 className="font-semibold mb-3">Criticism vs Anti-India Classifier</h3>
         <Textarea
-          placeholder="Paste a post..."
+          placeholder="Enter text to classify"
           className="bg-slate-900 border-slate-800 min-h-36"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <div className="mt-3 flex items-center gap-3">
-          <Button size="sm" onClick={() => setText("We need better roads in Bihar.")}>Example: Criticism</Button>
-          <Button size="sm" variant="secondary" onClick={() => setText("India is a failed state #breakIndia.")}>Example: Anti-India</Button>
-        </div>
         {text && (
           <div className="mt-4 flex items-center gap-3">
             <Badge className={result.label === "Anti-India" ? "bg-rose-500/20 text-rose-300" : "bg-emerald-500/20 text-emerald-200"}>
