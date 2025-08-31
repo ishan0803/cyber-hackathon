@@ -19,7 +19,7 @@ export default function Login() {
       toast.error("Invalid credentials");
       return;
     }
-    nav("/", { replace: true });
+    nav("/dashboard", { replace: true });
   }
 
   return (
