@@ -27,7 +27,9 @@ export default function Login() {
       <AnimatedNetworkBackground />
       <div className="w-full max-w-md rounded-xl border border-slate-800/60 bg-slate-900/70 p-6 shadow-2xl backdrop-blur">
         <div className="mb-4 text-center">
-          <h1 className="text-xl font-semibold">Digital Campaign Intelligence</h1>
+          <h1 className="text-xl font-semibold">
+            Digital Campaign Intelligence
+          </h1>
           <p className="text-sm text-muted-foreground">Secure access portal</p>
         </div>
         <form className="space-y-3" onSubmit={handleSignIn}>
