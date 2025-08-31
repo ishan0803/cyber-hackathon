@@ -38,16 +38,46 @@ const App = () => (
         <ErrorBoundary>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<ProtectedRoute element={<Overview />} />} />
-            <Route path="/graph" element={<ProtectedRoute element={<Graph />} />} />
-            <Route path="/heatmap" element={<ProtectedRoute element={<Heatmap />} />} />
-            <Route path="/topk" element={<ProtectedRoute element={<TopK />} />} />
-            <Route path="/alerts" element={<ProtectedRoute element={<Alerts />} />} />
-            <Route path="/audit" element={<ProtectedRoute element={<Audit />} />} />
-            <Route path="/campaigns" element={<ProtectedRoute element={<Campaigns />} />} />
-            <Route path="/classifier" element={<ProtectedRoute element={<Classifier />} />} />
-            <Route path="/normalizer" element={<ProtectedRoute element={<Normalizer />} />} />
-            <Route path="/settings" element={<ProtectedRoute element={<Settings />} />} />
+            <Route
+              path="/"
+              element={<ProtectedRoute element={<Overview />} />}
+            />
+            <Route
+              path="/graph"
+              element={<ProtectedRoute element={<Graph />} />}
+            />
+            <Route
+              path="/heatmap"
+              element={<ProtectedRoute element={<Heatmap />} />}
+            />
+            <Route
+              path="/topk"
+              element={<ProtectedRoute element={<TopK />} />}
+            />
+            <Route
+              path="/alerts"
+              element={<ProtectedRoute element={<Alerts />} />}
+            />
+            <Route
+              path="/audit"
+              element={<ProtectedRoute element={<Audit />} />}
+            />
+            <Route
+              path="/campaigns"
+              element={<ProtectedRoute element={<Campaigns />} />}
+            />
+            <Route
+              path="/classifier"
+              element={<ProtectedRoute element={<Classifier />} />}
+            />
+            <Route
+              path="/normalizer"
+              element={<ProtectedRoute element={<Normalizer />} />}
+            />
+            <Route
+              path="/settings"
+              element={<ProtectedRoute element={<Settings />} />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ErrorBoundary>

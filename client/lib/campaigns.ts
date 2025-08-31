@@ -9,7 +9,10 @@ export type CampaignCluster = {
   linkedHashtags: string[];
 };
 
-export function generateCampaignClusters(count = 20, seed = Date.now()): CampaignCluster[] {
+export function generateCampaignClusters(
+  count = 20,
+  seed = Date.now(),
+): CampaignCluster[] {
   const rand = mulberry32(seed);
   const base = Date.now() - 1000 * 60 * 60; // last hour
   const clusters: CampaignCluster[] = [];
@@ -27,7 +30,9 @@ export function generateCampaignClusters(count = 20, seed = Date.now()): Campaig
       if (tCandidate !== tag) extraTags.add(tCandidate);
     }
     const allTagsUnique = Array.from(new Set([tag, ...Array.from(extraTags)]));
-    const t = new Date(base + i * (1000 * 60 * 3) + Math.floor(rand() * 120000));
+    const t = new Date(
+      base + i * (1000 * 60 * 3) + Math.floor(rand() * 120000),
+    );
     clusters.push({
       id: `cc_${i}`,
       cluster: `${size} Tamil accounts`,

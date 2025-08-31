@@ -14,7 +14,11 @@ export function Animated3DBackground() {
     const stars: { x: number; y: number; z: number }[] = [];
     const count = Math.min(800, Math.floor((w * h) / 2500));
     for (let i = 0; i < count; i++) {
-      stars.push({ x: Math.random() * w - w / 2, y: Math.random() * h - h / 2, z: Math.random() * depth });
+      stars.push({
+        x: Math.random() * w - w / 2,
+        y: Math.random() * h - h / 2,
+        z: Math.random() * depth,
+      });
     }
 
     const onResize = () => {
@@ -56,5 +60,7 @@ export function Animated3DBackground() {
     };
   }, []);
 
-  return <canvas ref={ref} className="fixed inset-0 -z-10" aria-hidden="true" />;
+  return (
+    <canvas ref={ref} className="fixed inset-0 -z-10" aria-hidden="true" />
+  );
 }

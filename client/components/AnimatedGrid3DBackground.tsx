@@ -23,7 +23,14 @@ export function AnimatedGrid3DBackground() {
       ctx.fillRect(0, 0, w, h);
 
       // subtle vignette
-      const grad = ctx.createRadialGradient(w/2, h/2, Math.min(w,h)/8, w/2, h/2, Math.max(w,h)/1.2);
+      const grad = ctx.createRadialGradient(
+        w / 2,
+        h / 2,
+        Math.min(w, h) / 8,
+        w / 2,
+        h / 2,
+        Math.max(w, h) / 1.2,
+      );
       grad.addColorStop(0, "rgba(2,6,23,0)");
       grad.addColorStop(1, "rgba(0,0,0,0.6)");
       ctx.fillStyle = grad;
@@ -38,7 +45,7 @@ export function AnimatedGrid3DBackground() {
 
       // Horizontal lines moving towards the viewer
       for (let i = 1; i < depthLines; i++) {
-        const z = (i + (t * speed)) % depthLines;
+        const z = (i + t * speed) % depthLines;
         const scale = 1 / (0.05 * z + 0.05);
         const y = -Math.pow(scale, 1.1) * 20; // curve
         ctx.strokeStyle = `rgba(56,189,248,${Math.max(0, 1 - z / depthLines)})`; // cyan
@@ -81,5 +88,7 @@ export function AnimatedGrid3DBackground() {
     };
   }, []);
 
-  return <canvas ref={ref} className="fixed inset-0 -z-10" aria-hidden="true" />;
+  return (
+    <canvas ref={ref} className="fixed inset-0 -z-10" aria-hidden="true" />
+  );
 }

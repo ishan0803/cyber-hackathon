@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 const KEY = "dcis:settings";
 
- type Settings = {
+type Settings = {
   disclaimerAccepted: boolean;
   dataRetentionDays: number;
   useSynthetic: boolean;
@@ -48,7 +48,14 @@ export default function SettingsPage() {
       return;
     }
     addUser(form);
-    setForm({ username: "", password: "", name: "", email: "", role: "analyst", avatarUrl: undefined });
+    setForm({
+      username: "",
+      password: "",
+      name: "",
+      email: "",
+      role: "analyst",
+      avatarUrl: undefined,
+    });
     toast.success("User added");
   }
 
@@ -109,7 +116,9 @@ export default function SettingsPage() {
         {user?.role === "admin" && (
           <section className="col-span-12 rounded-xl border border-slate-800/60 bg-slate-900/60 p-4">
             <h3 className="font-semibold mb-2">User Management</h3>
-            <div className="text-sm text-muted-foreground mb-2">Add or remove users. You cannot remove the last admin.</div>
+            <div className="text-sm text-muted-foreground mb-2">
+              Add or remove users. You cannot remove the last admin.
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className="text-slate-400">
@@ -128,10 +137,19 @@ export default function SettingsPage() {
                       <td>{u.name}</td>
                       <td>{u.email}</td>
                       <td>
-                        <Badge variant="outline" className="border-slate-700">{u.role}</Badge>
+                        <Badge variant="outline" className="border-slate-700">
+                          {u.role}
+                        </Badge>
                       </td>
                       <td className="text-right">
-                        <Button size="sm" variant="ghost" onClick={() => handleRemove(u.id)} disabled={u.id === user.id}>Remove</Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleRemove(u.id)}
+                          disabled={u.id === user.id}
+                        >
+                          Remove
+                        </Button>
                       </td>
                     </tr>
                   ))}
@@ -140,17 +158,45 @@ export default function SettingsPage() {
             </div>
 
             <div className="mt-4 grid grid-cols-1 md:grid-cols-5 gap-2">
-              <input className="bg-slate-900 border border-slate-800 rounded px-2 py-1" placeholder="Username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
-              <input className="bg-slate-900 border border-slate-800 rounded px-2 py-1" placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-              <input className="bg-slate-900 border border-slate-800 rounded px-2 py-1" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <input className="bg-slate-900 border border-slate-800 rounded px-2 py-1" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-              <select className="bg-slate-900 border border-slate-800 rounded px-2 py-1" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value as any })}>
+              <input
+                className="bg-slate-900 border border-slate-800 rounded px-2 py-1"
+                placeholder="Username"
+                value={form.username}
+                onChange={(e) => setForm({ ...form, username: e.target.value })}
+              />
+              <input
+                className="bg-slate-900 border border-slate-800 rounded px-2 py-1"
+                placeholder="Password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+              />
+              <input
+                className="bg-slate-900 border border-slate-800 rounded px-2 py-1"
+                placeholder="Name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+              />
+              <input
+                className="bg-slate-900 border border-slate-800 rounded px-2 py-1"
+                placeholder="Email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
+              <select
+                className="bg-slate-900 border border-slate-800 rounded px-2 py-1"
+                value={form.role}
+                onChange={(e) =>
+                  setForm({ ...form, role: e.target.value as any })
+                }
+              >
                 <option value="analyst">Analyst</option>
                 <option value="admin">Admin</option>
                 <option value="viewer">Viewer</option>
               </select>
               <div className="md:col-span-5">
-                <Button size="sm" onClick={handleAdd}>Add User</Button>
+                <Button size="sm" onClick={handleAdd}>
+                  Add User
+                </Button>
               </div>
             </div>
           </section>

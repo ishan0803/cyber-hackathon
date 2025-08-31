@@ -60,7 +60,9 @@ export function useAuth() {
   }
 
   function signIn(username: string, password: string) {
-    const acc = users.find((u) => u.username === username && u.password === password);
+    const acc = users.find(
+      (u) => u.username === username && u.password === password,
+    );
     if (!acc) return false;
     const { password: _pw, username: _un, ...u } = acc;
     setUser(u);

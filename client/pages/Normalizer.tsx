@@ -1,7 +1,13 @@
 import { useMemo, useState } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 
 const slangDict: Record<string, string> = {
@@ -9,7 +15,7 @@ const slangDict: Record<string, string> = {
   bhakton: "pro-govt supporters",
   sarkar: "government",
   desh: "country",
-  "gya": "left",
+  gya: "left",
   "andh bhakt": "blind supporter",
 };
 
@@ -23,7 +29,9 @@ function normalize(input: string, lang: string) {
     text = text.replace(re, v);
   }
   // basic code-mixing: strip repeated punctuation/emojis
-  text = text.replace(/([!?.])\1{1,}/g, "$1").replace(/[\u{1F600}-\u{1F64F}]/gu, "");
+  text = text
+    .replace(/([!?.])\1{1,}/g, "$1")
+    .replace(/[\u{1F600}-\u{1F64F}]/gu, "");
   return text;
 }
 
@@ -49,7 +57,11 @@ export default function Normalizer() {
             </SelectContent>
           </Select>
         </div>
-        <Textarea className="bg-slate-900 border-slate-800 min-h-24" value={input} onChange={(e) => setInput(e.target.value)} />
+        <Textarea
+          className="bg-slate-900 border-slate-800 min-h-24"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
         <Card className="mt-3 p-3 bg-slate-900/70 border-slate-800">
           <div className="text-sm text-muted-foreground">Normalized</div>
           <div className="mt-1 font-medium">{out}</div>

@@ -22,20 +22,38 @@ export default function Campaigns() {
                   <div className="flex flex-wrap items-center gap-2 justify-between">
                     <div className="font-medium">{c.cluster}</div>
                     <div className="text-xs text-muted-foreground">
-                      {new Date(c.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                      {new Date(c.time).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </div>
                   </div>
                   <div className="mt-2 text-sm flex flex-wrap items-center gap-2">
-                    <Badge className="bg-cyan-500/20 text-cyan-300">{c.hashtag}</Badge>
-                    <span className="text-muted-foreground">Linked accounts:</span>
+                    <Badge className="bg-cyan-500/20 text-cyan-300">
+                      {c.hashtag}
+                    </Badge>
+                    <span className="text-muted-foreground">
+                      Linked accounts:
+                    </span>
                     {c.linkedAccounts.slice(0, 5).map((a) => (
-                      <Badge key={a} variant="outline" className="border-slate-700 text-slate-300">{a}</Badge>
+                      <Badge
+                        key={a}
+                        variant="outline"
+                        className="border-slate-700 text-slate-300"
+                      >
+                        {a}
+                      </Badge>
                     ))}
                   </div>
                   <div className="mt-2 text-sm flex flex-wrap items-center gap-2">
                     <span className="text-muted-foreground">Also using:</span>
                     {c.linkedHashtags.map((h) => (
-                      <Badge key={h} className="bg-emerald-500/20 text-emerald-200">{h}</Badge>
+                      <Badge
+                        key={h}
+                        className="bg-emerald-500/20 text-emerald-200"
+                      >
+                        {h}
+                      </Badge>
                     ))}
                   </div>
                 </Card>
