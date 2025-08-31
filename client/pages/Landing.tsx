@@ -8,7 +8,6 @@ export default function Landing() {
       <AnimatedNetworkBackground />
       <header className="relative z-10 flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2">
-          <div className="size-8 rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30 grid place-items-center font-bold text-cyan-300">D</div>
           <span className="font-semibold tracking-wide">Digital Campaign Intelligence</span>
         </div>
         <div className="flex items-center gap-2">
