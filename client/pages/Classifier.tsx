@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import AppLayout from "./Index";
+import { AppLayout } from "@/components/layout/AppLayout";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
