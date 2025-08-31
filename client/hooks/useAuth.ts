@@ -19,12 +19,10 @@ const defaultUser: User = {
 };
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
+  const [user, setUser] = useState<User | null>(() => {
     const raw = localStorage.getItem(USER_KEY);
-    setUser(raw ? (JSON.parse(raw) as User) : defaultUser);
-  }, []);
+    return raw ? (JSON.parse(raw) as User) : defaultUser;
+  });
 
   useEffect(() => {
     if (user) localStorage.setItem(USER_KEY, JSON.stringify(user));

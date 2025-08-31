@@ -32,6 +32,9 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { to: "/", label: "Overview" },
+  { to: "/campaigns", label: "Coordinated Campaigns" },
+  { to: "/classifier", label: "Classifier" },
+  { to: "/normalizer", label: "Normalizer" },
   { to: "/graph", label: "Graph Explorer" },
   { to: "/heatmap", label: "Heatmap" },
   { to: "/topk", label: "Top-K" },
