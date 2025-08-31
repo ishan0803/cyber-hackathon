@@ -89,4 +89,10 @@ const App = () => (
 if (!document.documentElement.classList.contains("dark")) {
   document.documentElement.classList.add("dark");
 }
-createRoot(document.getElementById("root")!).render(<App />);
+const container = document.getElementById("root")!;
+// Reuse existing root during HMR to avoid double createRoot warnings
+const anyWindow = window as unknown as { __app_root__?: ReturnType<typeof createRoot> };
+const existing = anyWindow.__app_root__;
+const root = existing ?? createRoot(container);
+root.render(<App />);
+anyWindow.__app_root__ = root;
