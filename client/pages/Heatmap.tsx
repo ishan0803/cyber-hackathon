@@ -4,6 +4,8 @@ import { geoMercator, geoPath } from "d3-geo";
 import { Slider } from "@/components/ui/slider";
 import { Drawer, DrawerContent, DrawerHeader } from "@/components/ui/drawer";
 import { genAntiTag } from "@/lib/synthetic";
+import { AppLayout } from "@/components/layout/AppLayout";
+import { Badge } from "@/components/ui/badge";
 
 type Feature = {
   type: string;
@@ -15,6 +17,12 @@ export default function Heatmap() {
   const [features, setFeatures] = useState<Feature[]>([]);
   const [t, setT] = useState(0);
   const [open, setOpen] = useState<{ state: string } | null>(null);
+  const [hover, setHover] = useState<{
+    x: number;
+    y: number;
+    state: string;
+    score: number;
+  } | null>(null);
   const width = 780,
     height = 520;
 
@@ -26,6 +34,8 @@ export default function Heatmap() {
       .then((g) => setFeatures(g.features as Feature[]))
       .catch(() => setFeatures([]));
   }, []);
+
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   const projection = useMemo(
     () =>
@@ -58,12 +68,13 @@ export default function Heatmap() {
             />
           </div>
         </div>
-        <div className="overflow-auto">
+        <div className="overflow-auto relative" ref={wrapRef}>
           <svg
             width={width}
             height={height}
             role="img"
             aria-label="India choropleth"
+            onMouseLeave={() => setHover(null)}
           >
             {features.map((f, i) => {
               const name = (f.properties.st_nm ||
@@ -71,6 +82,7 @@ export default function Heatmap() {
                 `state_${i}`) as string;
               const s = score(name) / 100;
               const color = `hsl(189 94% ${30 + s * 30}%)`;
+              const scorePct = Math.round(s * 100);
               return (
                 <path
                   key={i}
@@ -79,12 +91,34 @@ export default function Heatmap() {
                   stroke="#0f172a"
                   strokeWidth={0.6}
                   onClick={() => setOpen({ state: name })}
-                >
-                  <title>{`${name}: score ${Math.round(s * 100)}`}</title>
-                </path>
+                  onMouseEnter={(e) => {
+                    const rect = wrapRef.current!.getBoundingClientRect();
+                    setHover({
+                      x: e.clientX - rect.left,
+                      y: e.clientY - rect.top,
+                      state: name,
+                      score: scorePct,
+                    });
+                  }}
+                  onMouseMove={(e) => {
+                    if (!hover) return;
+                    const rect = wrapRef.current!.getBoundingClientRect();
+                    setHover({ ...hover, x: e.clientX - rect.left, y: e.clientY - rect.top });
+                  }}
+                />
               );
             })}
           </svg>
+          {hover && (
+            <div
+              className="absolute z-20 pointer-events-none rounded-md border border-slate-800 bg-slate-900/95 text-slate-200 text-xs px-2 py-1 shadow-lg"
+              style={{ left: hover.x + 12, top: hover.y + 12 }}
+           >
+              <div className="font-medium">{hover.state}</div>
+              <div className="opacity-80">Score: {hover.score}</div>
+              <div className="opacity-80">Risk: {hover.score > 66 ? "High" : hover.score > 33 ? "Medium" : "Low"}</div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -100,9 +134,18 @@ export default function Heatmap() {
             {Array.from({ length: 6 }).map((_, i) => {
               const rand = () => Math.random();
               const tags = [genAntiTag(rand), genAntiTag(rand)];
+              const time = new Date(Date.now() - i * 3600_000).toLocaleString();
               return (
-                <div key={i} className="border border-slate-800 rounded p-2">
-                  Event {i + 1} – top hashtags: {tags[0]}, {tags[1]}
+                <div key={i} className="border border-slate-800 rounded p-3 bg-slate-900/70">
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium">Event {i + 1}</div>
+                    <div className="text-xs text-muted-foreground">{time}</div>
+                  </div>
+                  <div className="mt-1 text-muted-foreground">Detected spike in coordinated activity.</div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <Badge className="bg-cyan-500/20 text-cyan-300">{tags[0]}</Badge>
+                    <Badge className="bg-emerald-500/20 text-emerald-200">{tags[1]}</Badge>
+                  </div>
                 </div>
               );
             })}
