@@ -13,8 +13,6 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -26,8 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { useTheme } from "@/hooks/useTheme";
-import { Bell, LogOut, MoonStar, Settings, SunMedium } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -46,7 +43,6 @@ const NAV = [
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const loc = useLocation();
   const { user, logout } = useAuth();
-  const { mode, highContrast, toggleMode, toggleHighContrast } = useTheme();
 
   return (
     <SidebarProvider>
@@ -91,37 +87,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <SidebarTrigger />
             <div className="flex-1" />
             <div className="hidden md:flex items-center gap-2">
-              <div className="hidden lg:block w-72">
-                <Input
-                  placeholder="Search accounts, hashtags, posts..."
-                  className="bg-slate-900 border-slate-800 placeholder:text-slate-500"
-                  aria-label="Search"
-                />
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-pressed={mode === "dark"}
-                onClick={toggleMode}
-              >
-                {mode === "dark" ? (
-                  <SunMedium className="text-amber-300" />
-                ) : (
-                  <MoonStar />
-                )}
-                <span className="sr-only">Toggle dark mode</span>
-              </Button>
-              <Button
-                variant={highContrast ? "secondary" : "ghost"}
-                size="sm"
-                onClick={toggleHighContrast}
-                aria-pressed={highContrast}
-              >
-                HC
-              </Button>
-              <Button variant="ghost" size="icon" aria-label="Notifications">
-                <Bell />
-              </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -143,7 +108,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   <DropdownMenuSeparator />
                   <Link to="/settings" className="block">
                     <DropdownMenuItem className={cn("gap-2")}>
-                      {" "}
                       <Settings className="size-4" /> Settings
                     </DropdownMenuItem>
                   </Link>
