@@ -22,6 +22,19 @@ export default function Heatmap() {
     state: string;
     score: number;
   } | null>(null);
+  const hoverNext = useRef<typeof hover>(null);
+  const raf = useRef<number | null>(null);
+  const scheduleHover = (h: NonNullable<typeof hover>) => {
+    hoverNext.current = h;
+    if (raf.current) return;
+    raf.current = requestAnimationFrame(() => {
+      if (hoverNext.current) setHover(hoverNext.current);
+      raf.current = null;
+    });
+  };
+  useEffect(() => () => {
+    if (raf.current) cancelAnimationFrame(raf.current);
+  }, []);
   const width = 780,
     height = 520;
 
@@ -90,19 +103,14 @@ export default function Heatmap() {
                   stroke="#0f172a"
                   strokeWidth={0.6}
                   onClick={() => setOpen({ state: name })}
-                  onMouseEnter={(e) => {
+                  onMouseMove={(e) => {
                     const rect = wrapRef.current!.getBoundingClientRect();
-                    setHover({
+                    scheduleHover({
                       x: e.clientX - rect.left,
                       y: e.clientY - rect.top,
                       state: name,
                       score: scorePct,
                     });
-                  }}
-                  onMouseMove={(e) => {
-                    if (!hover) return;
-                    const rect = wrapRef.current!.getBoundingClientRect();
-                    setHover({ ...hover, x: e.clientX - rect.left, y: e.clientY - rect.top });
                   }}
                 />
               );
