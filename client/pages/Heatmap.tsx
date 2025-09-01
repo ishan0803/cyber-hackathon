@@ -4,7 +4,6 @@ import { geoMercator, geoPath } from "d3-geo";
 import { Slider } from "@/components/ui/slider";
 import { Drawer, DrawerContent, DrawerHeader } from "@/components/ui/drawer";
 import { genAntiTag } from "@/lib/synthetic";
-import { AppLayout } from "@/components/layout/AppLayout";
 import { Badge } from "@/components/ui/badge";
 
 type Feature = {
