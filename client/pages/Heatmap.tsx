@@ -32,9 +32,12 @@ export default function Heatmap() {
       raf.current = null;
     });
   };
-  useEffect(() => () => {
-    if (raf.current) cancelAnimationFrame(raf.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (raf.current) cancelAnimationFrame(raf.current);
+    },
+    [],
+  );
   const width = 780,
     height = 520;
 
@@ -120,10 +123,17 @@ export default function Heatmap() {
             <div
               className="absolute z-20 pointer-events-none rounded-md border border-slate-800 bg-slate-900/95 text-slate-200 text-xs px-2 py-1 shadow-lg"
               style={{ left: hover.x + 12, top: hover.y + 12 }}
-           >
+            >
               <div className="font-medium">{hover.state}</div>
               <div className="opacity-80">Score: {hover.score}</div>
-              <div className="opacity-80">Risk: {hover.score > 66 ? "High" : hover.score > 33 ? "Medium" : "Low"}</div>
+              <div className="opacity-80">
+                Risk:{" "}
+                {hover.score > 66
+                  ? "High"
+                  : hover.score > 33
+                    ? "Medium"
+                    : "Low"}
+              </div>
             </div>
           )}
         </div>
@@ -143,15 +153,24 @@ export default function Heatmap() {
               const tags = [genAntiTag(rand), genAntiTag(rand)];
               const time = new Date(Date.now() - i * 3600_000).toLocaleString();
               return (
-                <div key={i} className="border border-slate-800 rounded p-3 bg-slate-900/70">
+                <div
+                  key={i}
+                  className="border border-slate-800 rounded p-3 bg-slate-900/70"
+                >
                   <div className="flex items-center justify-between">
                     <div className="font-medium">Event {i + 1}</div>
                     <div className="text-xs text-muted-foreground">{time}</div>
                   </div>
-                  <div className="mt-1 text-muted-foreground">Detected spike in coordinated activity.</div>
+                  <div className="mt-1 text-muted-foreground">
+                    Detected spike in coordinated activity.
+                  </div>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    <Badge className="bg-cyan-500/20 text-cyan-300">{tags[0]}</Badge>
-                    <Badge className="bg-emerald-500/20 text-emerald-200">{tags[1]}</Badge>
+                    <Badge className="bg-cyan-500/20 text-cyan-300">
+                      {tags[0]}
+                    </Badge>
+                    <Badge className="bg-emerald-500/20 text-emerald-200">
+                      {tags[1]}
+                    </Badge>
                   </div>
                 </div>
               );
